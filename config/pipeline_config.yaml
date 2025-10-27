@@ -1,0 +1,47 @@
+pipeline:
+  name: "Data Processing Pipeline"
+  description: "A pipeline to process and analyze data."
+
+spark:
+  master: "local[*]"
+  config:
+    spark.sql.adaptive.enabled: "true"
+    spark.sql.adaptive.coalescePartitions.enabled: "true"
+    spark.sql.shuffle.partitions: "8"
+
+source:
+  type: "csv"
+  path: "/data/input/customers.csv"
+  options:
+    header: "true"
+    inferSchema: "true"
+    encoding: "UTF-8"
+
+transformations:
+  strategy: "standard"
+  string_columns:
+    - "name"
+    - "city"
+  required_columns:
+    - "id"
+    - "email"
+
+sink:
+  type: "delta"
+  path: "/data/output/customers_processed"
+  mode: "overwrite"
+  partition_by:
+    - "country"
+
+quality:
+  enabled: true
+  checks:
+    - type: "not_empty"
+      min_rows: 1
+    - type: "column_exists"
+      columns: ["id", "name", "email"]
+    - type: "no_nulls"
+      columns: ["id", "email"]
+    - type: "unique"
+      columns: ["id"]
+

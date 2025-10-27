@@ -1,0 +1,3 @@
+employee_id,name,email,department,salary,hire_date,phone
+1,  SARAH smith  ,  sarah.smith@company.com  ,Engineering,95000,2023-05-15,+1-555-123-4567
+2,Michael@Brown#,michael.brown@company.com,Sales,75000,2022-08-20,5551234567

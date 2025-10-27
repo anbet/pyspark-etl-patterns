@@ -1,0 +1,15 @@
+[project]
+name = "pyspark-design-patterns"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "black>=25.9.0",
+    "deltalake>=1.2.1",
+    "great-expectations>=1.8.0",
+    "isort>=7.0.0",
+    "mypy>=1.18.2",
+    "pyspark>=4.0.1",
+    "pytest>=8.4.2",
+]

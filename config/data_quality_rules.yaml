@@ -1,0 +1,45 @@
+quality_checks:
+  customers:
+    - name: "not_empty"
+      type: "row_count"
+      min_rows: 1
+      
+    - name: "required_columns"
+      type: "schema"
+      columns:
+        - "id"
+        - "name"
+        - "email"
+        - "registration_date"
+    
+    - name: "no_null_ids"
+      type: "nulls"
+      columns: ["id"]
+      threshold_pct: 0.0
+    
+    - name: "valid_emails"
+      type: "pattern"
+      column: "email"
+      pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    
+    - name: "age_range"
+      type: "value_range"
+      column: "age"
+      min_value: 0
+      max_value: 120
+    
+    - name: "unique_customer_ids"
+      type: "uniqueness"
+      columns: ["id"]
+      
+  transactions:
+    - name: "positive_amounts"
+      type: "value_range"
+      column: "amount"
+      min_value: 0
+      
+    - name: "valid_dates"
+      type: "date_range"
+      column: "transaction_date"
+      min_date: "2020-01-01"
+      max_date: "2025-12-31"
